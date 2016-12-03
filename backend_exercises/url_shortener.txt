@@ -1,0 +1,18 @@
+
+We need you to design (there is no need to code anything) a URL shortener with these specifications:
+● It doesn't need to have a web interface, a JSON API is fine.
+● The API is open, there is no need for authentication / user accounts / developer keys.
+● Users should be able to choose their shortlink. For example, they might want
+http://sho.rt/my-short-link.
+● Shortlinks should expire after 6 months after it's created.
+
+The  api will respond to a post request, where the user is going to pass in the body of the request
+the url to redirect. If the user wants to use a shortlink it has to be passed as a param in the body.
+When the short url is generated (base32 or base64), using a bijective function, it will be saved
+with a expires_at field (6 month after its created). Wether the url has already been shortened
+the expires_at will be renewed for another 6 months.
+When the api is called for retrieving an url it will decode the short url and respond, if
+the short-url is not expired, the original url and 301/302 status code. If the short url is expired,
+it will responde 404 status and a message.
+When the user wants to use an own short link, both link and short link are saved with the expires at
+field, if the short lind already exists the api will respond 404 status with a message.
